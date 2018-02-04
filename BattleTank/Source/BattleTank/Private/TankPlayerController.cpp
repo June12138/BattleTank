@@ -30,7 +30,7 @@ ATank* ATankPlayerController::GetControlledTank() const {
 }
 void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
-	ATank* ControlledTank = GetControlledTank();
+	ControlledTank = GetControlledTank();
 	if (ControlledTank) {
 		UE_LOG(LogTemp, Warning, TEXT("player controller begin play %s"), *ControlledTank->GetName());
 	}
@@ -41,6 +41,6 @@ void ATankPlayerController::BeginPlay() {
 void ATankPlayerController::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 	if (GetCrosshairHitLocation(CrosshairHitLocation)) {
-		UE_LOG(LogTemp, Warning, TEXT("Crosshair hit at:%s"), *CrosshairHitLocation.ToString());
+		ControlledTank->AimAt(CrosshairHitLocation);
 	}
 }

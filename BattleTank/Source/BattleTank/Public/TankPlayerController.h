@@ -16,7 +16,10 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
+	//Variables
 	FVector CrosshairHitLocation;
+	ATank* ControlledTank;
+	//Functions
 	ATank* GetControlledTank() const;
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

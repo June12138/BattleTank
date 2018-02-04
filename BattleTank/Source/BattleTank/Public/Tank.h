@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Engine/World.h"
+#include "DrawDebugHelpers.h"
 #include "Tank.generated.h"
 
 UCLASS()
@@ -25,7 +27,5 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	
-	
+	void AimAt(FVector EndLocation);
 };

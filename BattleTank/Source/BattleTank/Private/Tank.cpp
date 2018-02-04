@@ -2,6 +2,10 @@
 
 #include "Tank.h"
 
+void ATank::AimAt(FVector EndLocation) {
+	UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *GetName(), *EndLocation.ToString());
+	//DrawDebugLine(GetWorld(), GetActorLocation(), EndLocation, FColor(255, 0, 0),false,0.0,0.0,10.0);
+}
 
 // Sets default values
 ATank::ATank()
