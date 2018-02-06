@@ -2,9 +2,12 @@
 
 #include "Tank.h"
 
+void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
+	TankAimingComponent->SetBarrel(BarrelToSet);
+}
+
 void ATank::AimAt(FVector EndLocation) {
-	UE_LOG(LogTemp, Warning, TEXT("%s Aiming at %s"), *GetName(), *EndLocation.ToString());
-	//DrawDebugLine(GetWorld(), GetActorLocation(), EndLocation, FColor(255, 0, 0),false,0.0,0.0,10.0);
+	TankAimingComponent->AimAt(EndLocation, LaunchSpeed);
 }
 
 // Sets default values
@@ -12,21 +15,26 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("TankAimingComponent"));
 }
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	StaticMesh = FindComponentByClass<UStaticMeshComponent>();
 }
 
 // Called every frame
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (StaticMesh) {
+		SetActorLocation(StaticMesh->GetComponentLocation());
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Static mesh not found!"));
+	}
 }
 
 // Called to bind functionality to input

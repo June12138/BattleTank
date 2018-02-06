@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "TankAimingComponent.h"
+#include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Tank.generated.h"
 
 UCLASS()
@@ -20,7 +22,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	UTankAimingComponent* TankAimingComponent = nullptr;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -28,4 +30,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void AimAt(FVector EndLocation);
+	UStaticMeshComponent* StaticMesh;
+	UFUNCTION(BluePrintCallable, Category = Setup)
+	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+	//speed of the projectile
+	UPROPERTY(EditAnywhere, Category = Firing)
+		float LaunchSpeed = 100000.0;
 };
