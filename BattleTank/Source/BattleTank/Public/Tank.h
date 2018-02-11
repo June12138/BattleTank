@@ -10,6 +10,9 @@
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Tank.generated.h"
 
+class UTankBarrel;
+class UTurrent;
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -32,7 +35,9 @@ public:
 	void AimAt(FVector EndLocation);
 	UStaticMeshComponent* StaticMesh;
 	UFUNCTION(BluePrintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* BarrelToSet);
+		void SetBarrelReference(UTankBarrel* BarrelToSet);
+	UFUNCTION(BluePrintCallable, Category = Setup)
+		void SetTurrentReference(UTurrent* TurrentToSet);
 	//speed of the projectile
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 100000.0;

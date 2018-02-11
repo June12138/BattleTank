@@ -1,9 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tank.h"
-
-void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
+//Set barrel to
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	TankAimingComponent->SetBarrel(BarrelToSet);
+}
+
+void ATank::SetTurrentReference(UTurrent* TurrentToSet) {
+	TankAimingComponent->SetTurrent(TurrentToSet);
 }
 
 void ATank::AimAt(FVector EndLocation) {

@@ -2,14 +2,26 @@
 
 #include "TankAimingComponent.h"
 
-void UTankAimingComponent::SetBarrel(UStaticMeshComponent* BarrelToSet) {
+void UTankAimingComponent::SetBarrel(UTankBarrel* BarrelToSet) {
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurrent(UTurrent* TurrentToSet) {
+	Turrent = TurrentToSet;
 }
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection) {
 	auto BarrelRotation = Barrel->GetForwardVector().Rotation();
 	auto TargetRotation = AimDirection.Rotation();
 	auto DeltaRotation = TargetRotation - BarrelRotation;
+	Barrel->ElevateBarrel(DeltaRotation.Pitch);
+}
+
+void UTankAimingComponent::MoveTurrent(FVector AimDirection) {
+	auto TurrentRotation = Turrent->GetForwardVector().Rotation();
+	auto TargetRotation = AimDirection.Rotation();
+	auto DeltaRotation = TargetRotation - TurrentRotation;
+	Turrent->RotateTurrent(DeltaRotation.Yaw);
 }
 
 void UTankAimingComponent::AimAt(FVector EndVector, float LaunchSpeed) {
@@ -19,8 +31,13 @@ void UTankAimingComponent::AimAt(FVector EndVector, float LaunchSpeed) {
 	bool HaveAimingSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, EndVector, LaunchSpeed, false,0.0,0.0,ESuggestProjVelocityTraceOption::DoNotTrace);
 	auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 	if (HaveAimingSolution) {
+		//  move turret and barrel to aim at the location
 		MoveBarrel(OutLaunchVelocity);
-		DrawDebugLine(GetWorld(), Barrel->GetComponentLocation(), OutLaunchVelocity, FColor(255, 0, 0), false, 0.0, 0.0, 10.0);
+		MoveTurrent(OutLaunchVelocity);
+		DrawDebugLine(GetWorld(), Barrel->GetSocketLocation(FName("Projectile")), OutLaunchVelocity, FColor(255, 0, 0), false, 0.0, 0.0, 10.0);
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Solution not found"))
 	}
 }
 
