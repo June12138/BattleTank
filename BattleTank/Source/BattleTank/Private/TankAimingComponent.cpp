@@ -34,7 +34,6 @@ void UTankAimingComponent::AimAt(FVector EndVector, float LaunchSpeed) {
 		//  move turret and barrel to aim at the location
 		MoveBarrel(OutLaunchVelocity);
 		MoveTurrent(OutLaunchVelocity);
-		DrawDebugLine(GetWorld(), Barrel->GetSocketLocation(FName("Projectile")), OutLaunchVelocity, FColor(255, 0, 0), false, 0.0, 0.0, 10.0);
 	}
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Solution not found"))

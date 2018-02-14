@@ -8,6 +8,8 @@
 #include "DrawDebugHelpers.h"
 #include "TankAimingComponent.h"
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
+#include "Projectile.h"
+#include "TankBarrel.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
@@ -43,6 +45,12 @@ public:
 	//speed of the projectile
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 100000.0;
+	UPROPERTY(EditAnywhere)
+		UClass * ProjectileBlueprint;
 private:
-	float LastFireTime = 0.0;
+	double LastFireTime = 0.0;
+	UPROPERTY(EditAnywhere)
+		double ReloadTimeSeconds = 3.0;
+	//Local tank barrel pointer
+	UTankBarrel* Barrel = nullptr;
 };

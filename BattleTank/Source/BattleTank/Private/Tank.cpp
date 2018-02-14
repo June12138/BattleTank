@@ -4,6 +4,7 @@
 //Set barrel to
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	TankAimingComponent->SetBarrel(BarrelToSet);
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurrentReference(UTurrent* TurrentToSet) {
@@ -15,13 +16,10 @@ void ATank::AimAt(FVector EndLocation) {
 }
 
 void ATank::Fire() {
-	if (LastFireTime* == 0.0 || ((GetWorld()->GetTimeSeconds() + 3) >= LastFireTime)) {
-		LastFireTime = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("Fire!!!!!"));
-	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("Loading"));
-	}
+	UE_LOG(LogTemp, Warning, TEXT("Fire!!!"));
+	if (!Barrel) { return; }
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
+	Projectile->LaunchProjectile(LaunchSpeed);
 }
 
 // Sets default values
