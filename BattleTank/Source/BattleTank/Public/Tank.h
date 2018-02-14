@@ -38,7 +38,11 @@ public:
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
 	UFUNCTION(BluePrintCallable, Category = Setup)
 		void SetTurrentReference(UTurrent* TurrentToSet);
+	UFUNCTION(BluePrintCallable, Category = Input)
+		void Fire();
 	//speed of the projectile
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 100000.0;
+private:
+	float LastFireTime = 0.0;
 };

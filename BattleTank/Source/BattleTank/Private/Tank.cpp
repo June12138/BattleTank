@@ -14,6 +14,16 @@ void ATank::AimAt(FVector EndLocation) {
 	TankAimingComponent->AimAt(EndLocation, LaunchSpeed);
 }
 
+void ATank::Fire() {
+	if (LastFireTime* == 0.0 || ((GetWorld()->GetTimeSeconds() + 3) >= LastFireTime)) {
+		LastFireTime = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("Fire!!!!!"));
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("Loading"));
+	}
+}
+
 // Sets default values
 ATank::ATank()
 {
