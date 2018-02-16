@@ -17,9 +17,12 @@ void ATank::AimAt(FVector EndLocation) {
 
 void ATank::Fire() {
 	UE_LOG(LogTemp, Warning, TEXT("Fire!!!"));
-	if (!Barrel) { return; }
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint,Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
-	Projectile->LaunchProjectile(LaunchSpeed);
+	bool IsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeSeconds;
+	if (IsReloaded && Barrel) {
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = GetWorld()->GetTimeSeconds();
+	}
 }
 
 // Sets default values

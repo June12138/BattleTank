@@ -10,6 +10,7 @@
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Projectile.h"
 #include "TankBarrel.h"
+#include "TankMovementComponent.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
@@ -53,4 +54,5 @@ private:
 		double ReloadTimeSeconds = 3.0;
 	//Local tank barrel pointer
 	UTankBarrel* Barrel = nullptr;
+
 };
