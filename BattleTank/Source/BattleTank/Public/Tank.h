@@ -15,6 +15,7 @@
 
 class UTankBarrel;
 class UTurrent;
+class UTankMovementComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -54,5 +55,7 @@ private:
 		double ReloadTimeSeconds = 3.0;
 	//Local tank barrel pointer
 	UTankBarrel* Barrel = nullptr;
-
+protected:
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 };
