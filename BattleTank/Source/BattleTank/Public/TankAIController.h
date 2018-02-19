@@ -20,4 +20,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	ATank* ControlledTank;
 	ATank* PlayerTank;
+private:
+	float AcceptedRadius = 1000.0;
 };

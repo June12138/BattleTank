@@ -35,9 +35,6 @@ void UTankAimingComponent::AimAt(FVector EndVector, float LaunchSpeed) {
 		MoveBarrel(OutLaunchVelocity);
 		MoveTurrent(OutLaunchVelocity);
 	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("Solution not found"))
-	}
 }
 
 // Sets default values for this component's properties

@@ -16,7 +16,6 @@ void ATank::AimAt(FVector EndLocation) {
 }
 
 void ATank::Fire() {
-	UE_LOG(LogTemp, Warning, TEXT("Fire!!!"));
 	bool IsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeSeconds;
 	if (IsReloaded && Barrel) {
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
@@ -38,19 +37,13 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	StaticMesh = FindComponentByClass<UStaticMeshComponent>();
 }
 
 // Called every frame
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (StaticMesh) {
-		SetActorLocation(StaticMesh->GetComponentLocation());
-	}
-	else {
-		UE_LOG(LogTemp, Error, TEXT("Static mesh not found!"));
-	}
+	SetActorLocation(RootComponent->GetComponentLocation());
 }
 
 // Called to bind functionality to input

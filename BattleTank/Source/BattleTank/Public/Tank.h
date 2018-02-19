@@ -37,7 +37,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void AimAt(FVector EndLocation);
-	UStaticMeshComponent* StaticMesh;
 	UFUNCTION(BluePrintCallable, Category = Setup)
 		void SetBarrelReference(UTankBarrel* BarrelToSet);
 	UFUNCTION(BluePrintCallable, Category = Setup)

@@ -6,7 +6,6 @@
 #include "Runtime/Engine/Classes/GameFramework/Actor.h"
 
 void UTrack::SetThrottle(float Throttle) {
-	UE_LOG(LogTemp, Warning, TEXT("Throttle: %f"), Throttle);
 	auto DrivingForce = Throttle * MaxForce * GetForwardVector();
 	FVector ForceLocation = GetComponentLocation();
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
