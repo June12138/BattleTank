@@ -20,6 +20,7 @@ public:
 	FVector CrosshairHitLocation;
 	ATank* ControlledTank;
 	//Functions
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

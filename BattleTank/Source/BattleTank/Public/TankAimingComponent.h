@@ -12,7 +12,15 @@
 #include "Turrent.h"
 #include "TankAimingComponent.generated.h"
 
+UENUM()
+enum class EAimingState : uint8 {
+	Reloading,
+	Aiming,
+	Locked,
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -33,6 +41,8 @@ public:
 	void SetTurrent(UTurrent* TurrentToSet);
 	void MoveBarrel(FVector AimDirection);
 	void MoveTurrent(FVector AimDirection);
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EAimingState AimingState = EAimingState::Reloading;
 private:
 	UTankBarrel * Barrel = nullptr;
 	UTurrent * Turrent = nullptr;
