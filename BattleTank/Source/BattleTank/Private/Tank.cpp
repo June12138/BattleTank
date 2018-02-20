@@ -2,13 +2,10 @@
 
 #include "Tank.h"
 //Set barrel to
-void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
-	TankAimingComponent->SetBarrel(BarrelToSet);
+void ATank::Init(UTankBarrel* BarrelToSet, UTankAimingComponent* AimingComponentToSet, UTankMovementComponent* MovementComponentToSet) {
 	Barrel = BarrelToSet;
-}
-
-void ATank::SetTurrentReference(UTurrent* TurrentToSet) {
-	TankAimingComponent->SetTurrent(TurrentToSet);
+	TankAimingComponent = AimingComponentToSet;
+	TankMovementComponent = MovementComponentToSet;
 }
 
 void ATank::AimAt(FVector EndLocation) {
@@ -18,7 +15,7 @@ void ATank::AimAt(FVector EndLocation) {
 void ATank::Fire() {
 	bool IsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeSeconds;
 	if (IsReloaded && Barrel) {
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, Barrel->GetSocketLocation(FName("Projectile")), Barrel->GetSocketRotation(FName("Projectile")));
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = GetWorld()->GetTimeSeconds();
 	}
@@ -29,8 +26,6 @@ ATank::ATank()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("TankAimingComponent"));
-	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("TankMovementComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -43,7 +38,6 @@ void ATank::BeginPlay()
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	SetActorLocation(RootComponent->GetComponentLocation());
 }
 
 // Called to bind functionality to input

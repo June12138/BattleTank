@@ -36,14 +36,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	UFUNCTION(BlueprintCallable)
+		void Init(UTankBarrel* BarrelToSet, UTankAimingComponent* AimingComponentToSet, UTankMovementComponent* MovementComponentToSet);
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void AimAt(FVector EndLocation);
-	UFUNCTION(BluePrintCallable, Category = Setup)
-		void SetBarrelReference(UTankBarrel* BarrelToSet);
-	UFUNCTION(BluePrintCallable, Category = Setup)
-		void SetTurrentReference(UTurrent* TurrentToSet);
 	UFUNCTION(BluePrintCallable, Category = Input)
 		void Fire();
 	//speed of the projectile
